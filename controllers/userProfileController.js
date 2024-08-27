@@ -18,6 +18,9 @@ const updateProfile = async (req, res) => {
     const { id } = req.params;
     const updateData = req.body;
 
+    console.log("updatedta", updateData);
+
+    console.log("file", req.file);
     if (req.file) {
       try {
         const imageUrl = await uploadSingleImageToCloudinary(req.file.path);
