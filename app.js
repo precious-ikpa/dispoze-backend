@@ -1,9 +1,9 @@
+const mongoose = require("mongoose");
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-const mongoose = require("mongoose");
 require("dotenv").config();
 const cors = require("cors");
 
@@ -13,15 +13,6 @@ var userProfileRouter = require("./routes/userProfileRoutes");
 var orderRouter = require("./routes/orderRoutes");
 
 var app = express();
-
-//cloudinary setup
-cloudinary = require("cloudinary");
-
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
 
 mongoose
   .connect(process.env.local_DB)
@@ -39,14 +30,23 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+//cloudinary setup
+cloudinary = require("cloudinary");
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/users", userProfileRouter);
 app.use("/api/v1/order", orderRouter);
 
-app.get("/", (req, res) =>{
-  res.send("Welcome to StudyNow backend team!")
-})
+app.get("/", (req, res) => {
+  res.send("Welcome to StudyNow backend team!");
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
