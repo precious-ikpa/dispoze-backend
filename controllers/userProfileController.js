@@ -13,7 +13,7 @@ const getLoggedInUser = async (req, res) => {
   }
 };
 
-const updateProfile = async (req, res) => {
+const updateProfile = async (req, res, next) => {
   try {
     const { id } = req.params;
     const updateData = req.body;
@@ -35,7 +35,7 @@ const updateProfile = async (req, res) => {
     });
 
     if (!updatedUser) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).send({ error: "User not found" });
     }
 
     const userObject = updatedUser.toObject();
@@ -44,7 +44,8 @@ const updateProfile = async (req, res) => {
     res.status(200).json(userObject);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: error.message });
+    next(error);
+    res.status(500).send({ error: error.message });
   }
 };
 
