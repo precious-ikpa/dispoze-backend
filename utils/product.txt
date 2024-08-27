@@ -1,0 +1,102 @@
+[
+  {
+    "productName": "Heavy-Duty Bagster",
+    "description": "A durable, versatile waste removal bag for heavy-duty projects.",
+    "price": "29.99",
+    "stock": 150,
+    "productCategory": "Bagster",
+    "productColors": ["Green", "Black"],
+    "productImages": [
+      "https://example.com/images/bagster1.jpg",
+      "https://example.com/images/bagster2.jpg"
+    ],
+    "dimensions": "8 ft x 4 ft x 2.5 ft",
+    "capacity": "606 gallons",
+    "weightLimit": "3300 lbs",
+    "material": "Polypropylene",
+    "features": "Tear-resistant, UV-resistant",
+    "bestUse": "Home renovation projects",
+    "emptyingMethod": "Crane lifting",
+    "coverFeatures": "None"
+  },
+  {
+    "productName": "10-Yard Dumpster",
+    "description": "Ideal for medium-sized cleanouts or small construction projects.",
+    "price": "349.99",
+    "stock": 45,
+    "productCategory": "Dumpster",
+    "productColors": ["Blue", "Yellow"],
+    "productImages": [
+      "https://example.com/images/dumpster1.jpg",
+      "https://example.com/images/dumpster2.jpg"
+    ],
+    "dimensions": "12 ft x 8 ft x 4 ft",
+    "capacity": "10 cubic yards",
+    "weightLimit": "2000 lbs",
+    "material": "Steel",
+    "features": "Roll-off design, rear door for easy loading",
+    "bestUse": "Medium renovation projects",
+    "emptyingMethod": "Roll-off truck",
+    "coverFeatures": "Tarp cover available"
+  },
+  {
+    "productName": "Compact Container",
+    "description": "A compact waste container perfect for urban environments.",
+    "price": "149.99",
+    "stock": 120,
+    "productCategory": "Container",
+    "productColors": ["Red", "Grey"],
+    "productImages": [
+      "https://example.com/images/container1.jpg",
+      "https://example.com/images/container2.jpg"
+    ],
+    "dimensions": "6 ft x 4 ft x 3 ft",
+    "capacity": "4 cubic yards",
+    "weightLimit": "1200 lbs",
+    "material": "High-density polyethylene",
+    "features": "Space-saving design, wheels for easy mobility",
+    "bestUse": "Urban residential waste",
+    "emptyingMethod": "Rear load truck",
+    "coverFeatures": "Lid with lock"
+  },
+  {
+    "productName": "20-Yard Dumpster",
+    "description": "Perfect for large-scale cleanouts and construction projects.",
+    "price": "599.99",
+    "stock": 30,
+    "productCategory": "Dumpster",
+    "productColors": ["Green", "Black"],
+    "productImages": [
+      "https://example.com/images/dumpster20yd1.jpg",
+      "https://example.com/images/dumpster20yd2.jpg"
+    ],
+    "dimensions": "22 ft x 8 ft x 4.5 ft",
+    "capacity": "20 cubic yards",
+    "weightLimit": "4000 lbs",
+    "material": "Steel",
+    "features": "Heavy-duty construction, rear swing door",
+    "bestUse": "Large construction projects",
+    "emptyingMethod": "Roll-off truck",
+    "coverFeatures": "Tarp cover included"
+  },
+  {
+    "productName": "Large Bagster",
+    "description": "A large capacity bag ideal for bulky waste removal.",
+    "price": "39.99",
+    "stock": 200,
+    "productCategory": "Bagster",
+    "productColors": ["Yellow", "Black"],
+    "productImages": [
+      "https://example.com/images/largebagster1.jpg",
+      "https://example.com/images/largebagster2.jpg"
+    ],
+    "dimensions": "10 ft x 5 ft x 3 ft",
+    "capacity": "850 gallons",
+    "weightLimit": "4000 lbs",
+    "material": "Reinforced polypropylene",
+    "features": "Extra-large capacity, easy to store",
+    "bestUse": "Heavy debris from remodeling",
+    "emptyingMethod": "Crane lifting",
+    "coverFeatures": "None"
+  }
+]
