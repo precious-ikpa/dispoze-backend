@@ -1,10 +1,98 @@
 const Product = require("../models/productModel");
 const { uploadMultipleImagesToCloudinary } = require("../utils/helpers");
 
+// const createProduct = async (req, res) => {
+//   let productImages = [];
+
+//   try {
+//     const {
+//       productName,
+//       description,
+//       price,
+//       stock,
+//       productCategory,
+//       productColors,
+//       dimensions,
+//       capacity,
+//       weightLimit,
+//       material,
+//       features,
+//       bestUse,
+//       emptyingMethod,
+//       coverFeatures,
+//     } = req.body;
+
+//     // Check if a product with the same name already exists
+//     const existingProduct = await Product.findOne({ productName });
+//     if (existingProduct) {
+//       console.log("Product already exists:", productName);
+//       return res
+//         .status(400)
+//         .json({ error: "A product with this name already exists." });
+//     }
+
+//     try {
+//       // Upload images to Cloudinary
+
+//       if (req.files && req.files.length > 0) {
+//         productImages = await uploadMultipleImagesToCloudinary(req.files);
+//       }
+//     } catch (uploadError) {
+//       return res
+//         .status(500)
+//         .json({ error: "Image upload failed", details: uploadError.message });
+//     }
+
+//     const newProduct = new Product({
+//       productName,
+//       description,
+//       price,
+//       stock,
+//       productCategory,
+//       productColors,
+//       dimensions,
+//       capacity,
+//       weightLimit,
+//       material,
+//       features,
+//       bestUse,
+//       emptyingMethod,
+//       coverFeatures,
+//       productImages,
+//     });
+
+//     const savedProduct = await newProduct.save();
+//     console.log("Product saved successfully:", savedProduct);
+//     return res.status(201).json(savedProduct);
+//   } catch (error) {
+//     console.error("Unexpected error in createProduct:", error);
+
+//     const errorMessage = error.message || "An unknown error occurred";
+//     return res.status(500).json({ error: errorMessage });
+//   }
+// };
+
 const createProduct = async (req, res) => {
   let productImages = [];
 
   try {
+    // First, handle image uploads
+    console.log("files", req.files);
+    try {
+      if (req.files && req.files.length > 0) {
+        // Upload images to Cloudinary
+        productImages = await uploadMultipleImagesToCloudinary(req.files);
+      } else {
+        return res.status(400).json({ error: "No product images provided." });
+      }
+    } catch (uploadError) {
+      console.error("Image upload failed:", uploadError);
+      return res
+        .status(500)
+        .json({ error: "Image upload failed", details: uploadError.message });
+    }
+
+    // After uploading images, proceed with other product details
     const {
       productName,
       description,
@@ -31,18 +119,7 @@ const createProduct = async (req, res) => {
         .json({ error: "A product with this name already exists." });
     }
 
-    try {
-      // Upload images to Cloudinary
-
-      if (req.files && req.files.length > 0) {
-        productImages = await uploadMultipleImagesToCloudinary(req.files);
-      }
-    } catch (uploadError) {
-      return res
-        .status(500)
-        .json({ error: "Image upload failed", details: uploadError.message });
-    }
-
+    // Create new product after verifying it does not already exist
     const newProduct = new Product({
       productName,
       description,
@@ -58,7 +135,7 @@ const createProduct = async (req, res) => {
       bestUse,
       emptyingMethod,
       coverFeatures,
-      productImages,
+      productImages, // Add uploaded image URLs to the new product
     });
 
     const savedProduct = await newProduct.save();
@@ -66,9 +143,9 @@ const createProduct = async (req, res) => {
     return res.status(201).json(savedProduct);
   } catch (error) {
     console.error("Unexpected error in createProduct:", error);
-
-    const errorMessage = error.message || "An unknown error occurred";
-    return res.status(500).json({ error: errorMessage });
+    return res
+      .status(500)
+      .json({ error: error.message || "An unknown error occurred" });
   }
 };
 
@@ -112,13 +189,12 @@ const updateProduct = async (req, res) => {
   try {
     const productId = req.params.id;
 
-    const updateData = req.body;
-
     if (req.files && req.files.length > 0) {
       updateData.productImages = await uploadMultipleImagesToCloudinary(
         req.files
       );
     }
+    const updateData = req.body;
 
     const updatedProduct = await Product.findByIdAndUpdate(
       productId,
