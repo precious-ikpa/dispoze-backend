@@ -32,7 +32,7 @@ const uploadMultipleImagesToCloudinary = async (files) => {
 //upload single images
 const uploadSingleImageToCloudinary = async (file) => {
   try {
-    console.log("file", file);
+    console.log("received-file", file);
     const uploadResult = await cloudinary.uploader.upload(file, {
       resource_type: "image",
       upload_preset: "StudyNow",

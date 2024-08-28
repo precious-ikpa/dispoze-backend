@@ -16,21 +16,32 @@ const userRouter = express.Router();
  *   name: Profile
  *   description: Profile management
  */
+
+/**
+ * @swagger
+ * /api/v1/users:
+ *   get:
+ *     summary: Get Profile
+ *     tags: [Profile]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Profile fetched successfully
+ *       400:
+ *         description: Invalid or expired token
+ *       404:
+ *         description: User not found
+ */
+
 userRouter.get("/", verifyUser, getLoggedInUser);
 
 /**
  * @swagger
- * /api/v1/users/{id}:
+ * /api/v1/users:
  *   put:
  *     summary: Upload Profile Picture
  *     tags: [Profile]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: The user ID
  *     requestBody:
  *       required: true
  *       content:
@@ -49,6 +60,6 @@ userRouter.get("/", verifyUser, getLoggedInUser);
  *       500:
  *         description: Internal server error
  */
-userRouter.put("/:id", verifyUser, upload.single("picture"), updateProfile);
+userRouter.put("/", verifyUser, upload.single("picture"), updateProfile);
 
 module.exports = userRouter;

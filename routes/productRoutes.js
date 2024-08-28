@@ -13,6 +13,13 @@ const { upload } = require("../utils/multerConfig");
 
 const productRouter = express.Router();
 
+/**
+ * @swagger
+ * tags:
+ *   name: Profile
+ *   description: Profile management
+ */
+
 // Search and get all products with pagination
 productRouter.get("/", getProducts);
 
