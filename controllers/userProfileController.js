@@ -18,16 +18,18 @@ const updateProfile = async (req, res, next) => {
   try {
     const { id } = req.params;
     const updateData = req.body;
+    const file = req.file.path;
 
     console.log("updatedta", updateData);
 
-    console.log("file", req.file);
-    if (req.file) {
+    console.log("file", file);
+    if (file) {
       try {
-        const imageUrl = await uploadSingleImageToCloudinary(req.file.path);
+        const imageUrl = await uploadSingleImageToCloudinary(file);
         updateData.profilePictureURL = imageUrl;
-      } catch (uploadError) {
-        return res.status(500).json({ error: "Error uploading image" });
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        return res.status(500).send({ error: "Error uploading image" });
       }
     }
 

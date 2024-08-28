@@ -32,10 +32,14 @@ const uploadMultipleImagesToCloudinary = async (files) => {
 //upload single images
 const uploadSingleImageToCloudinary = async (file) => {
   try {
+    console.log("file", file);
     const uploadResult = await cloudinary.uploader.upload(file, {
-      resource_type: process.env.CLOUDINARY_RESOURCE_TYPE,
-      upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET,
+      resource_type: "image",
+      upload_preset: "StudyNow",
+      // resource_type: process.env.CLOUDINARY_RESOURCE_TYPE,
+      // upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET,
     });
+    console.log("uploadResult", uploadResult);
 
     // Remove the local file after successful upload
     fs.unlink(file, (err) => {

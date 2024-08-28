@@ -6,6 +6,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 require("dotenv").config();
 const cors = require("cors");
+const setupSwaggerDocs = require("./swagger");
 
 var authRouter = require("./routes/authRoutes");
 var productRouter = require("./routes/productRoutes");
@@ -38,7 +39,7 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
-
+setupSwaggerDocs(app);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/users", userProfileRouter);
