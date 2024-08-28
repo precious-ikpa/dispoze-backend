@@ -8,22 +8,30 @@ const { validatePassword } = require("../middlewares/passwordCheck");
 
 const registerUser = async (req, res, next) => {
   try {
-    const { firstName, lastName, email, password, phoneNumber, role } = req.body;
+    const { firstName, lastName, email, password, phoneNumber, role } =
+      req.body;
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const existingUser = await usersModel.findOne({ email });
+    // Check if a user with the same email or phone number exists
+    const existingUser = await usersModel.findOne({
+      $or: [{ email }, { phoneNumber }],
+    });
 
     if (existingUser) {
-      res.status(400).send({
-        message: "User already exists",
-      });
-      return;
-    }
+      // Check specifically what exists: email or phone number
+      const errorMessage =
+        existingUser.email === email
+          ? "Email already exists"
+          : "Phone number already exists";
 
+      return res.status(403).send({
+        message: errorMessage,
+      });
+    }
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await usersModel.create({
@@ -32,7 +40,7 @@ const registerUser = async (req, res, next) => {
       email,
       phoneNumber,
       password: hashedPassword,
-      role
+      role,
     });
 
     res.status(201).send({
