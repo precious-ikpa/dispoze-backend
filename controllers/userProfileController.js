@@ -56,8 +56,8 @@ const updateProfile = async (req, res, next) => {
   try {
     console.log("req.user", req.userDetails);
     const { id } = req.userDetails; // Get user ID from the decoded token (from req.user)
-    const updateData = req.body;
     const file = req.file?.path; // Check if file exists
+    const updateData = req.body;
 
     console.log("updatedta", updateData);
     console.log("file", file);
